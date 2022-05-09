@@ -1,15 +1,23 @@
 body {
     display: flex;
+    background-color: cadetblue;
 }
 
 #nav {
     width: 25vw;
 }
-
-#search-box {
-    width: 200px;
+li:hover {
+    color: yellow;
 }
 
+li.pointer {
+    cursor: pointer;
+}
+
+#search-box {
+    width: 250px;
+}
+     
 #char-list {
     list-style-type: none;
 }
