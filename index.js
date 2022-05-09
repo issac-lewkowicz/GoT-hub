@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const nav = document.querySelector('#nav')
     const charList = document.getElementById('char-list')
     const main = document.getElementById('main')
+    const searchForm = document.getElementById('search-form')
 
     function renderNav(charArray) {
         charArray.forEach(char => {
@@ -30,7 +31,14 @@ document.addEventListener('DOMContentLoaded', () => {
         main.append(fullName, houseName, title, image)
     }
 
-
+    searchForm.addEventListener('submit', () => {
+        // Empty nav bar
+        // Access to charArray?
+        // Create a filter by user input
+        // Find the method to compare strings
+        // Return the filtered array to renderNav
+        
+    })
 
 
 
