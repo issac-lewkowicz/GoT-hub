@@ -1,12 +1,38 @@
 document.addEventListener('DOMContentLoaded', () => {
     fetch('https://thronesapi.com/api/v2/Characters')
         .then(resp => resp.json())
-        .then(charArray => renderNav(charArray))
+        .then(charArray => {
+            renderNav(charArray)
+            formHandler(charArray)
+        })
 
-    const nav = document.querySelector('#nav')
     const charList = document.getElementById('char-list')
     const main = document.getElementById('main')
     const searchForm = document.getElementById('search-form')
+    const dltBtn = document.createElement('button')
+    let serachResults = [];
+    function formHandler(charArray) {
+        searchForm.addEventListener('submit', (e) => {
+            e.preventDefault()
+            charList.innerHTML = '';
+            dltBtn.addEventListener('click', (e) => {
+                charList.innerHTML = '';
+                renderNav(charArray)
+                e.target.remove()
+            })
+            dltBtn.textContent = 'Delete';
+            const userSearch = e.target.search_box.value.toLowerCase()
+            if (userSearch !== '') searchForm.append(dltBtn);
+            serachResults = [];
+            serachResults = charArray.filter(char => {
+                let lowerChar = char.fullName.toLowerCase()
+                return lowerChar.includes(userSearch)
+             })
+            renderNav(serachResults)
+            searchForm.reset()
+        })
+    }
+
 
     function renderNav(charArray) {
         charArray.forEach(char => {
@@ -31,14 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         main.append(fullName, houseName, title, image)
     }
 
-    searchForm.addEventListener('submit', () => {
-        // Empty nav bar
-        // Access to charArray?
-        // Create a filter by user input
-        // Find the method to compare strings
-        // Return the filtered array to renderNav
-        
-    })
+
 
 
 
