@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const main = document.getElementById('main')
     const searchForm = document.getElementById('search-form')
     const dltBtn = document.createElement('button')
+    const favList = document.getElementById('fav-list')
+
     let serachResults = [];
     function formHandler(charArray) {
         searchForm.addEventListener('submit', (e) => {
@@ -34,6 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
+
+
     function renderNav(charArray) {
         charArray.forEach(char => {
             const li = document.createElement('li')
@@ -45,21 +49,55 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }    
 
-    function renderMain(char) {
+    function renderFavs(charObj) {
+        const li = document.createElement('li')
+        const img = document.createElement('img')
+        li.id = charObj.id
+        img.src = charObj.imageUrl
+
+        img.addEventListener('click', () => renderMain(charObj))
+        li.append(img)
+        favList.append(li)
+    }
+
+    function renderMain(charObj) {
         main.innerHTML = ''
         const fullName = document.createElement('h1')
         const houseName = document.createElement('h3')
         const image = document.createElement('img')
         const title = document.createElement('h3')
-        fullName.textContent = 'Name: ' + char.fullName
-        houseName.textContent = 'House/Family: ' + char.family
-        title.textContent = 'Title: ' + char.title
-        image.src = char.imageUrl
-        
-        main.append(fullName, houseName, title, image)
+        const br = document.createElement('br')
+        const favBtn = document.createElement('button')
+        fullName.textContent = 'Name: ' + charObj.fullName
+        houseName.textContent = 'House/Family: ' + charObj.family
+        title.textContent = 'Title: ' + charObj.title
+        image.src = charObj.imageUrl
+        // if(! favBtn.classList.contains('favored')) favBtn.textContent = 'Favorite';
+        favBtn.addEventListener('click', () => {
+            favBtn.classList.toggle('favored')
+            console.log(favBtn)
+            if(favBtn.classList.contains('favored')) {
+                favBtn.textContent = 'Remove From Favorites'
+                renderFavs(charObj)
+                // Add to database
+                // 
+            } 
+            else {
+                favBtn.textContent = 'Favorite'
+                document.getElementById(charObj.id).remove()
+                // Remove list from DOM
+                // Remove from database
+                // Need to fix fav button rendering
+            }
+            })
+        main.append(fullName, houseName, title, image, br, favBtn)
     }
 
+    
 
+    //renderFavs to render whole favorites container
+    //renderOneFav to add a single item to favorites
+    //deleteOneFav to remove a single item to favorites
 
 
 
