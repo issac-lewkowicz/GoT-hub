@@ -3,14 +3,14 @@ body {
     background-color: cadetblue;
 }
 
-#nav {
-    width: 25vw;
-}
+/* #nav {
+    width: 11.5vw;
+} */
 li:hover {
     color: yellow;
 }
 
-li.pointer {
+li, #search, button {
     cursor: pointer;
 }
 
@@ -20,4 +20,8 @@ li.pointer {
      
 #char-list {
     list-style-type: none;
+}
+
+img {
+    border-radius: 8px;
 }
