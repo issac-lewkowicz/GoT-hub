@@ -37,8 +37,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderNav(charArray) {
         charArray.forEach(char => {
             const li = document.createElement('li')
-            li.textContent = char.fullName
-            li.addEventListener('click', () => renderMain(char))
+            const span = document.createElement('span')
+            span.textContent = char.fullName
+            span.addEventListener('click', () => renderMain(char))
+            li.append(span)
             charList.append(li)
         })
     }    
