@@ -1,1 +1,3 @@
 # GoT-hub
+
+Welcome to GoT-Hub, the place where you can see your favorite characters from Game of Thrones and choose your favorites! Use the nav bar on the left side to scroll through an extensive list of GoT characters. Click on a name, and you will see their picture along with some details render in the main area of the window. You can use the 'Favorite' button to save a character to your Favorites list. Made a mistake, or change your mind about a character? Just use the 'Remove from Favorites' button to delete that character from your favorites list.
