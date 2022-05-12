@@ -1,22 +1,43 @@
 document.addEventListener('DOMContentLoaded', () => {
-    fetch('https://thronesapi.com/api/v2/Characters')
-        .then(resp => resp.json())
-        .then(charArray => {
-            // console.log(charArray)
-            // renderNav(charArray)
-            formHandler(charArray)
-            renderFavContainer(charArray)
-        })
 
     const charList = document.getElementById('char-list')
     const main = document.getElementById('main')
     const searchForm = document.getElementById('search-form')
     const dltBtn = document.createElement('button')
     const favList = document.getElementById('fav-list')
-    const allSpans = document.getElementsByTagName('span')
-    const theRightSpan = ''
-
+    let allSpans = document.getElementsByTagName('span')
+    let objSpan = 'empty'
     let serachResults = [];
+    let favArray;
+
+    renderFavContainer()
+    .then( (favCharArray) => {
+        getFavArray(favCharArray)
+        favCharArray.forEach(favCharObj => {
+            //objSpan = spanFinder(favCharObj)
+            //console.log("from renderFavContainer: ", objSpan)
+            renderFav(favCharObj) //, objSpan)
+        })
+    });
+
+    function getFavArray(favCharArray) {
+        favArray = favCharArray;
+    }
+
+    function renderFavContainer() {
+        return fetch('http://localhost:3000/favorites')
+             .then(resp => resp.json())
+ 
+     }
+
+    fetch('https://thronesapi.com/api/v2/Characters')
+        .then(resp => resp.json())
+        .then(charArray => {
+            // console.log(charArray)
+            renderNav(charArray)
+            formHandler(charArray)
+            //favContainer(charArray)
+        })
 
     function formHandler(charArray) {
         searchForm.addEventListener('submit', (e) => {
@@ -40,43 +61,43 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
-    function renderNav(charArray, favCharArray) {
-        
-        charArray.forEach(char => {
+    function renderNav(charArray) {
+        charList.innerHTML = '';
+        charArray.forEach(charObj => {
             const li = document.createElement('li')
             const span = document.createElement('span')
-            span.textContent = char.fullName
-            span.addEventListener('click', () => {
-                ! span.classList.contains('favored') ? renderMain(char, span) : renderMainFromFavs(char, span)
+            span.textContent = charObj.fullName 
+            span.addEventListener('click', (e) => {
+                objSpan = e.target
+                let favCharObj = favArray.find((favCharObj) => objSpan.textContent === favCharObj.fullName)
+                //console.log("From renderNav favCharObj: ", favCharObj)
+                //console.log("from renderNav e.listener: ", span)
+                // if (favCharObj) console.log("yeah!")
+                // else console.log('nope!')
+                favCharObj ? renderMainFromFavs(favCharObj, objSpan) : renderMain(charObj, span);
             })
             li.append(span)
             charList.append(li)
             
         })
-        favCharArray.forEach(favChar => {
-            const span = spanFinder(favChar)
-            span.className = 'favored'
-        })
+        // favCharArray.forEach(favChar => {
+        //     span = spanFinder(favChar)
+        //     span.className = 'favored'
+        // })
     }    
 
-    function renderFavContainer(charArray) {
-        fetch('http://localhost:3000/favorites')
-            .then(resp => resp.json())
-            .then(favCharArray => {
-                favCharArray.forEach(charObj => renderFav(charObj))
-                renderNav(charArray, favCharArray)
-            })
-    }
 
-    function renderFav(charObj) {
+    function renderFav(favCharObj) {
         const li = document.createElement('li')
         const img = document.createElement('img')
-        li.id = charObj.id
-        img.src = charObj.imageUrl
-        const span = spanFinder(charObj)
-        if(charObj.fav !== 'yes') span.classList.toggle('favored')
-        // console.log(span)
-        img.addEventListener('click', () => renderMainFromFavs(charObj, span))
+        //li.id = favCharObj.uniqueId
+        li.id = favCharObj.id
+        img.src = favCharObj.imageUrl
+        //objSpan = spanFinder(charObj)
+        //console.log('from renderFav: ',objSpan)
+        //if(charObj.fav !== 'yes') span.classList.toggle('favored')
+        //console.log(span)
+        img.addEventListener('click', () => renderMainFromFavs(favCharObj))
         li.append(img)
         favList.append(li)
     }
@@ -86,30 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //      - add conditional check if in favsList
     // Fix delete function
 
-    function renderMainFromFavs(charObj, span) {
-        main.innerHTML = ''
-        const fullName = document.createElement('h1')
-        const houseName = document.createElement('h3')
-        const image = document.createElement('img')
-        const title = document.createElement('h3')
-        const br = document.createElement('br')
-        const favBtn = document.createElement('button')
-        fullName.textContent = 'Name: ' + charObj.fullName
-        houseName.textContent = 'House/Family: ' + charObj.family
-        title.textContent = 'Title: ' + charObj.title
-        image.src = charObj.imageUrl
-        favBtn.textContent = 'Remove From Favorites'
-        favBtn.addEventListener('click', () => {
-            span.className = ''
-            favBtn.textContent = 'Favorite'
-            document.getElementById(charObj.id).remove()
-            deleteFav(charObj.id)
-            renderMain(charObj)
-        })
-        main.append(fullName, houseName, title, image, br, favBtn)
-    }
-
-    function renderMain(charObj, span) {
+    function renderMain(charObj) {
         
         main.innerHTML = ''
         const fullName = document.createElement('h1')
@@ -123,26 +121,53 @@ document.addEventListener('DOMContentLoaded', () => {
         title.textContent = 'Title: ' + charObj.title
         image.src = charObj.imageUrl
         favBtn.textContent = 'Favorite';
-     
-        // theRightSpan = spanFinder(charObj)
+        
+        //objSpan = spanFinder(charObj)
+        //console.log('from renderMain: ',   objSpan)
         favBtn.addEventListener('click', () => {
-            
-            span.className = 'favored'
-            favBtn.textContent = 'Remove From Favorites'
-            
             postFav(charObj)
-            renderMainFromFavs(charObj)
-            })
+            .then((favCharObj) => {
+            renderFav(favCharObj)
+            //let favCharObj = favArray.find((favCharObj) => charObj.fullName === favCharObj.fullName)
+            console.log("favCharObj from renderMain: ", favCharObj)
+            console.log('renderMain charObj: ', charObj)
+            renderMainFromFavs(favCharObj)})
+        })
         main.append(fullName, houseName, title, image, br, favBtn)
     }
 
-    function spanFinder(charObj) {
-        for(span of allSpans) {
-            if(span.textContent === charObj.fullName) return span        
-    }}
+    function renderMainFromFavs(charObj) {
+        main.innerHTML = ''
+        //console.log('from renderMainFromFavs: ', objSpan)
+        const fullName = document.createElement('h1')
+        const houseName = document.createElement('h3')
+        const image = document.createElement('img')
+        const title = document.createElement('h3')
+        const br = document.createElement('br')
+        const favBtn = document.createElement('button')
+        fullName.textContent = 'Name: ' + charObj.fullName
+        houseName.textContent = 'House/Family: ' + charObj.family
+        title.textContent = 'Title: ' + charObj.title
+        image.src = charObj.imageUrl
+        favBtn.textContent = 'Remove From Favorites'
+        favBtn.addEventListener('click', () => {
+            //objSpan.className = ''
+            //favBtn.textContent = 'Favorite'
+            //105 might be redundent?
+            //document.getElementById(charObj.id).remove()
+            deleteFav(charObj)
+            renderMain(charObj)
+        })
+        main.append(fullName, houseName, title, image, br, favBtn)
+    }
+
+    // function spanFinder(char) {
+    //     for(span of allSpans) {
+    //         if(span.textContent === char.fullName) return console.log(span);
+    // }}
 
     function postFav(charObj) {
-        fetch('http://localhost:3000/favorites', {
+       return fetch('http://localhost:3000/favorites', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -157,15 +182,19 @@ document.addEventListener('DOMContentLoaded', () => {
             })
         })
             .then(resp => resp.json())
-            .then(charObj => {
-                renderFav(charObj)})
     }
 
-    function deleteFav(id) {
-        fetch(`http://localhost:3000/favorites/${id}`, {
+    function deleteFav(charObj) {
+        console.log('this is charobj be4 dlt: ',charObj)
+        fetch(`http://localhost:3000/favorites/${charObj.id}`, {
             method: 'DELETE'
-        })    
-    }
+        })
+        .then(() => {
+            console.log("Id num from deleteFav: ", charObj.id)
+            //console.log("obj for deletion (deleteFav): ", document.querySelector(`${charObj.uniqueId}`));
+            document.getElementById(`${charObj.id}`).remove()
+            //document.charObj.uniqueId
+        })}
 
     //renderFavContainer to render whole favorites container
     //renderFav to add a single item to favorites
