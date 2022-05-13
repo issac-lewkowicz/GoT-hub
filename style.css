@@ -21,7 +21,7 @@ header {
 #title-bar {
     display: flex;
     grid-row: 2;
-    grid-column: 3/span2;
+    grid-column: 4;
     justify-content: space-evenly;
     /* justify-items: center; */
 }
@@ -34,10 +34,11 @@ header {
 }
 
 #favorites {
-    display: grid;
+    display: flex;
     grid-column: 3;
-    grid-row: 3;
+    grid-row: 2/span2;
     justify-items: center;
+    height: 90vh;
     
 }
 
@@ -77,7 +78,7 @@ span, #search, button {
 
 img {
     border-radius: 8px;
-    max-width: 600px;
+    /* max-width: 600px; */
     max-width: 45vw;
     /* max-height: 75vh; */
 }
