@@ -1,25 +1,7 @@
 body {
-    display: grid;
-    grid-template-rows: 10vh 15vh 75vh;
-    grid-template-columns: 15vw 30vw 10vw 45vw;
-    column-gap: 5px;
+    display: flex;
     background-color: cadetblue;
-    /* height: 95vh; */
-}
-
-header {
-    grid-column: 2;
-    grid-row: 2/span2;
-}
-
-#border {
-    grid-row: 1;
-    grid-column: 1 / span 4;
-}
-
-#title-bar {
-    grid-row: 2;
-    grid-column: 3/span2;
+    height: 95vh;
 }
 
 #char-list{
@@ -28,22 +10,8 @@ header {
     list-style-type: none;
 }
 
-#favorites {
-    display: grid;
-    grid-column: 3;
-    grid-row: 3;
-    justify-items: center;
-}
-
 #fav-list {
     list-style-type: none;
-    padding-inline-start: 0px;
-}
-
-#main {
-    /* margin-left: 5vw; */
-    grid-row: 3;
-    grid-column: 4;
 }
 
 span:hover {
@@ -69,7 +37,9 @@ li img {
     width: 50px;
 }
 
-
+#main {
+    margin-left: 5vw;
+}
 
 ::-webkit-scrollbar {
     width: 6px;
