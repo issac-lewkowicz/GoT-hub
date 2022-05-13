@@ -1,3 +1,112 @@
 {
-  "favorites": []
+  "favorites": [
+    {
+      "fullName": "Rob Stark",
+      "family": "House Stark",
+      "title": "Lord of Winterfell",
+      "imageUrl": "https://thronesapi.com/assets/images/robb-stark.jpg",
+      "fav": "yes",
+      "uniqueId": 11,
+      "id": 1
+    },
+    {
+      "fullName": "Missandei",
+      "family": "Naathi",
+      "title": "Queen's Personal Advisor",
+      "imageUrl": "https://thronesapi.com/assets/images/missandei.jpeg",
+      "fav": "yes",
+      "uniqueId": 24,
+      "id": 2
+    },
+    {
+      "fullName": "Gendry Baratheon",
+      "family": "Baratheon",
+      "title": "Lord of Storm's End",
+      "imageUrl": "https://thronesapi.com/assets/images/gendry.jpg",
+      "fav": "yes",
+      "uniqueId": 32,
+      "id": 3
+    },
+    {
+      "fullName": "Margaery Tyrell",
+      "family": "House Tyrell",
+      "title": "Queen of the Seven Kingdoms",
+      "imageUrl": "https://thronesapi.com/assets/images/margaery-tyrell.jpg",
+      "fav": "yes",
+      "uniqueId": 21,
+      "id": 4
+    },
+    {
+      "fullName": "The Hound",
+      "family": "House Clegane",
+      "title": "The Hound",
+      "imageUrl": "https://thronesapi.com/assets/images/the-hound.jpg",
+      "fav": "yes",
+      "uniqueId": 15,
+      "id": 5
+    },
+    {
+      "fullName": "Roose Bolton",
+      "family": "Bolton",
+      "title": "Lord of Dreadfort",
+      "imageUrl": "https://thronesapi.com/assets/images/roose-bolton.jpg",
+      "fav": "yes",
+      "uniqueId": 28,
+      "id": 6
+    },
+    {
+      "fullName": "Daario",
+      "family": "Naharis",
+      "title": "Commander of the Second Sons",
+      "imageUrl": "https://thronesapi.com/assets/images/daario.jpg",
+      "fav": "yes",
+      "uniqueId": 29,
+      "id": 7
+    },
+    {
+      "fullName": "Euron Greyjoy",
+      "family": "Greyjoy",
+      "title": "King of the iron Islands",
+      "imageUrl": "https://thronesapi.com/assets/images/euron-greyjoy.jpg",
+      "fav": "yes",
+      "uniqueId": 46,
+      "id": 8
+    },
+    {
+      "fullName": "Viserys Targaryn",
+      "family": "Targaryan",
+      "title": "King Viserys III",
+      "imageUrl": "https://thronesapi.com/assets/images/viserys-targaryan.jpg",
+      "fav": "yes",
+      "uniqueId": 26,
+      "id": 9
+    },
+    {
+      "fullName": "Tommen Baratheon",
+      "family": "Baratheon",
+      "title": "Prince",
+      "imageUrl": "https://thronesapi.com/assets/images/tommen.jpg",
+      "fav": "yes",
+      "uniqueId": 31,
+      "id": 10
+    },
+    {
+      "fullName": "Yara Greyjoy",
+      "family": "Greyjoy",
+      "title": "Lady of the Iron Islands",
+      "imageUrl": "https://thronesapi.com/assets/images/yara-greyjoy.jpg",
+      "fav": "yes",
+      "uniqueId": 45,
+      "id": 11
+    },
+    {
+      "fullName": "Lord Bronn",
+      "family": "Bronn",
+      "title": "Lord of Highgarden",
+      "imageUrl": "https://thronesapi.com/assets/images/bronn.jpg",
+      "fav": "yes",
+      "uniqueId": 52,
+      "id": 12
+    }
+  ]
 }
